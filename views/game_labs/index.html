@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Laps - Compatibilidad de Juegos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Colores Fieles a tu Maqueta (Reutilizados) */
+        body {
+            background-color: #e3e3e3; 
+        }
+        .content-bg {
+            background-color: #e0e2e6;
+        }
+        .header-bg {
+            background-color: #3b424b; 
+        }
+        .input-bg {
+            background-color: #f3f4f6; /* Fondo de la tarjeta de entrada */
+        }
+        .results-bg {
+             background-color: #f3f4f6; /* Fondo de la tarjeta de resultados */
+        }
+        .compatibility-text {
+            color: #555c65; /* Gris oscuro para el texto principal */
+        }
+        .check-button {
+            background-color: #6c757d; /* Gris medio para el botón de verificar */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="w-full header-bg shadow-lg p-4 flex justify-between items-center text-white">
+        <a href="/inicio/index.html" class="back-button-color hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full transition duration-150 flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Volver a Home
+        </a>
+        
+        <h1 class="text-3xl font-extrabold text-center flex-grow">Game Laps - Compatibilidad</h1>
+        
+        <div class="w-24"></div> 
+    </header>
+
+    <main class="w-full content-bg flex-grow p-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <div class="input-bg rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold compatibility-text mb-6 border-b-2 border-gray-400 pb-2">⚙️ Ingresa tus Componentes</h2>
+                
+                <form class="space-y-6">
+                    
+                    <div>
+                        <label for="cpu" class="block text-sm font-medium compatibility-text mb-1">Procesador (CPU)</label>
+                        <select id="cpu" name="cpu" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-gray-500 focus:border-gray-500">
+                            <option value="none" selected disabled>Selecciona tu CPU</option>
+                            <option value="ryzen_9_7950x">AMD Ryzen 9 7950X</option>
+                            <option value="i7_13700k">Intel Core i7-13700K</option>
+                            <option value="ryzen_5_3600">AMD Ryzen 5 3600</option>
+                            </select>
+                    </div>
+
+                    <div>
+                        <label for="gpu" class="block text-sm font-medium compatibility-text mb-1">Tarjeta Gráfica (GPU)</label>
+                        <select id="gpu" name="gpu" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-gray-500 focus:border-gray-500">
+                            <option value="none" selected disabled>Selecciona tu GPU</option>
+                            <option value="rtx_4090">NVIDIA RTX 4090</option>
+                            <option value="rx_7900xtx">AMD Radeon RX 7900 XTX</option>
+                            <option value="rtx_3060">NVIDIA RTX 3060</option>
+                            <option value="pepito">pepito</option>
+                            </select>
+                    </div>
+
+                    <div>
+                        <label for="ram" class="block text-sm font-medium compatibility-text mb-1">Memoria RAM (Cantidad en GB)</label>
+                        <select id="ram" name="ram" class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-gray-500 focus:border-gray-500">
+                            <option value="none" selected disabled>Selecciona la cantidad de RAM</option>
+                            <option value="32">32 GB</option>
+                            <option value="16">16 GB</option>
+                            <option value="8">8 GB</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="check-button hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-full w-full transition duration-150 shadow-md">
+                        Verificar Compatibilidad
+                    </button>
+                </form>
+                
+            </div>
+
+            <div class="results-bg rounded-xl shadow-lg p-6">
+                <h2 class="text-2xl font-bold compatibility-text mb-6 border-b-2 border-gray-400 pb-2">🎮 Juegos Compatibles (Simulado)</h2>
+                
+                <div id="game-results" class="space-y-4">
+                    
+                    <p class="text-sm text-gray-500">**Al presionar 'Verificar' se mostrará la lista aquí.**</p>
+
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </main>
+
+    <footer class="w-full header-bg p-4 text-center text-xs text-gray-400">
+        <p>Game Laps | Calculador de Compatibilidad v1.0</p>
+    </footer>
+    <script src="index.js"></script>
+</body>
+</html>

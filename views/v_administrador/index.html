@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Gestión de Productos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+      .h-screen {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 antialiased">
+    <div class="flex h-screen">
+      <div class="w-64 bg-gray-800 text-white flex flex-col p-4 shadow-xl">
+        <div class="text-2xl font-bold mb-8 border-b border-gray-700 pb-4">
+          Admin Dashboard
+        </div>
+        <nav class="flex flex-col space-y-2">
+          <a href="#" class="p-2 rounded bg-gray-700 flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 mr-2"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"
+              ></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            Productos
+          </a>
+          <a
+            href="/inicio/index.html"
+            class="p-2 rounded hover:bg-gray-700 transition duration-150 flex items-center"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 mr-2"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Inicio
+          </a>
+        </nav>
+      </div>
+
+      <main class="flex-1 p-8 overflow-y-auto">
+        <header class="flex justify-between items-center mb-6 border-b pb-4">
+          <h1 class="text-3xl font-semibold text-gray-800">
+            Gestión de Productos
+          </h1>
+          <button
+            onclick="toggleForm()"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition shadow-md"
+          >
+            + Agregar Nuevo Producto
+          </button>
+        </header>
+
+        <div
+          id="product-form"
+          class="bg-white p-6 rounded-lg shadow-xl mb-8 border border-blue-200 hidden"
+        >
+          <h2 class="text-xl font-semibold mb-4 text-gray-800">
+            Añadir/Editar Producto
+          </h2>
+          <form class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <input
+              type="text"
+              placeholder="Nombre del Producto"
+              class="p-3 border border-gray-300 rounded col-span-2 focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+            />
+            <input
+              type="number"
+              placeholder="Precio ($)"
+              class="p-3 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+            />
+
+            <div class="col-span-3 md:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Imagen del Producto (URL)</label
+              >
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-20 h-20 bg-gray-200 rounded border border-gray-300 flex-shrink-0 overflow-hidden flex items-center justify-center"
+                >
+                  <img
+                    id="preview-img"
+                    src="https://via.placeholder.com/150?text=IMG"
+                    class="w-full h-full object-cover"
+                    alt="Vista Previa"
+                  />
+                </div>
+                <div class="flex-grow">
+                  <input
+                    type="url"
+                    id="product-img-url"
+                    placeholder="https://ejemplo.com/imagen.jpg"
+                    class="w-full p-3 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+                  />
+                  <p class="text-xs text-gray-500 mt-1">
+                    Pega aquí el enlace directo de la imagen.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-span-3">
+              <label class="block text-sm font-medium text-gray-700 mb-1"
+                >Descripción Detallada</label
+              >
+              <textarea
+                id="product-desc"
+                rows="4"
+                placeholder="Escribe aquí las especificaciones, detalles técnicos, etc."
+                class="w-full p-3 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500 text-gray-800"
+              ></textarea>
+            </div>
+            <div class="col-span-3 flex justify-end space-x-2 mt-4">
+              <button
+                type="button"
+                onclick="toggleForm()"
+                class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded transition shadow-sm"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition shadow-sm"
+              >
+                Guardar Producto
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+          <div
+            class="grid grid-cols-6 gap-4 p-4 font-bold text-sm text-gray-700 uppercase bg-gray-50 border-b border-gray-200"
+          >
+            <div class="col-span-1">Imagen</div>
+            <div class="col-span-2">Nombre</div>
+            <div class="col-span-1">Precio</div>
+            <div class="col-span-2">Acciones</div>
+          </div>
+
+          <div
+            class="p-4 flex justify-between items-center text-sm text-gray-600 bg-white"
+          >
+            <span>Mostrando productos...</span>
+            <div></div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

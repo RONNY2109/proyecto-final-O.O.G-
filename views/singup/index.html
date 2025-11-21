@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/output.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Registro</title>
+  </head>
+  <body class="">
+    <nav
+      id="navbar"
+      class="fixed top-0 right-0 left-0 bg-indigo-700 h-16"
+    ></nav>
+
+    <div id="notification" class="fixed top-20 left-0 right-0"></div>
+
+    <div
+      class="pt-16 h-screen flex max-w-7xl mx-auto justify-center items-center px-4"
+    >
+      <div class="hidden lg:flex w-2/4 justify-center items-center">
+        <img
+          class="w-3/4"
+          src="/img/signup.svg"
+          alt="imagen para registro"
+        />
+      </div>
+      <form
+        id="form"
+        class="flex flex-col gap-4 bg-zinc-100 px-4 rounded-lg text-md shadow-lg lg:w-2/4"
+      >
+        <div class="flex flex-col gap-2">
+          <label for="name-input" class="font-bold"
+            >Nombre <span class="text-red-500">*</span></label
+          >
+          <input
+            type="text"
+            id="name-input"
+            name="name-input"
+            autocomplete="off"
+            placeholder="Pepito Perez"
+            class="rounded-lg p-2 bg-white focus:outline-indigo-700"
+          />
+          <p class="text-xs text-zinc-800">
+            Seria tu Nombre y Apellido. Tanto como el nombre con el apellido
+            debe comenzar con mayúsculas
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="name-input" class="font-bold"
+            >Correo <span class="text-red-500">*</span></label
+          >
+          <input
+            type="email"
+            id="email-input"
+            name="email"
+            autocomplete="off"
+            placeholder="ejemplo@gmail.com"
+            class="rounded-lg p-2 bg-white focus:outline-indigo-700"
+          />
+          <p class="text-xs text-zinc-800">EL correo es requerido</p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="name-input" class="font-bold"
+            >Contraseña<span class="text-red-500">*</span></label
+          >
+          <input
+            type="password"
+            id="password-input"
+            name="password-input"
+            autocomplete="off"
+            class="rounded-lg p-2 bg-white focus:outline-indigo-700"
+          />
+          <p class="text-xs text-zinc-800">
+            Debe tener al menos una letra <br />
+            Debe de tener al menos un número
+          </p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="name-input" class="font-bold">
+            Confirmar Contraseña<span class="text-red-500">*</span></label
+          >
+          <input
+            type="password"
+            id="match-input"
+            name="match-input"
+            autocomplete="off"
+            class="rounded-lg p-2 bg-white focus:outline-indigo-700"
+          />
+          <p class="text-xs text-zinc-800">Debe coincidir con la Contraseña</p>
+        </div>
+        <button
+          id="form-btn"
+          class="bg-indigo-700 py-2 px-4 rounded-lg font-bold text-white hover:bg-indigo-800 text-center transition ease-in-out cursor-pointer"
+        >
+          Registrar
+        </button>
+      </form>
+    </div>
+    <!-- <script src="/components/nav.js"></script> -->
+    <script type="module" src="index.js"></script>
+    <script type="module" src="../components/notification.js"></script>
+  </body>
+</html>

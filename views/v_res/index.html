@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprobante de Compra - Game Labs</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+/* Estilos para impresión */
+@media print {
+body { margin: 0; background: none; }
+#receipt-container { box-shadow: none; border: none; }
+.no-print { display: none; }
+}
+</style>
+</head>
+<body class="bg-gray-50 p-6 flex justify-center min-h-screen">
+
+<div id="receipt-container" class="bg-white shadow-2xl rounded-xl w-full max-w-xl p-8 border border-gray-200">
+
+<header class="flex justify-between items-center border-b border-gray-300 pb-4 mb-6">
+<div>
+<h1 class="text-3xl font-extrabold text-indigo-700">GAME LABS</h1>
+<p class="text-sm text-gray-500">Comprobante de Transacción Digital</p>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold">RECIBO N°</p>
+<p id="receipt-transaction-id" class="text-xl font-extrabold text-gray-800">#Cargando...</p>
+</div>
+</header>
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 text-sm">
+<div>
+<h2 class="font-bold text-gray-700 mb-1">FACTURADO A:</h2>
+<p id="receipt-user-name" class="font-medium">Cargando...</p>
+<p id="receipt-user-email">Cargando...</p>
+<p>Usuario Registrado</p>
+</div>
+<div class="md:text-right">
+<h2 class="font-bold text-gray-700 mb-1">DETALLES:</h2>
+<p>Fecha: <span id="receipt-date" class="font-medium">--/--/----</span></p>
+<p>Método: <span id="receipt-payment-method" class="font-medium">Desconocido</span></p>
+<p>ID de Usuario: <span id="receipt-user-id" class="font-medium">Cargando...</span></p>
+</div>
+</section>
+
+<main class="mb-8">
+<table class="min-w-full divide-y divide-gray-300">
+<thead class="bg-indigo-50">
+<tr>
+<th class="px-3 py-3 text-left text-xs font-medium text-indigo-700 uppercase tracking-wider w-1/2">
+Producto
+</th>
+<th class="px-3 py-3 text-right text-xs font-medium text-indigo-700 uppercase tracking-wider">
+Cant.
+</th>
+<th class="px-3 py-3 text-right text-xs font-medium text-indigo-700 uppercase tracking-wider">
+Precio
+</th>
+<th class="px-3 py-3 text-right text-xs font-medium text-indigo-700 uppercase tracking-wider">
+Total
+</th>
+</tr>
+</thead>
+<tbody id="receipt-items-body" class="bg-white divide-y divide-gray-200 text-sm">
+<tr><td colspan="4" class="py-6 text-center text-gray-500">Procesando artículos...</td></tr>
+</tbody>
+</table>
+</main>
+
+<div class="flex justify-end">
+<div class="w-full md:w-1/2">
+<div class="flex justify-between py-2 border-t text-sm">
+<span class="text-gray-600">Subtotal:</span>
+<span id="receipt-subtotal" class="font-medium">$0.00</span>
+</div>
+<div class="flex justify-between py-2 text-sm">
+<span class="text-gray-600">Impuestos (<span id="receipt-tax-rate">16</span>%):</span>
+<span id="receipt-tax" class="font-medium">$0.00</span>
+</div>
+<div class="flex justify-between py-3 border-t-2 border-indigo-700 text-lg font-extrabold">
+<span>TOTAL PAGADO:</span>
+<span id="receipt-grand-total" class="text-indigo-700">$0.00</span>
+</div>
+</div>
+</div>
+
+<div class="mt-8 no-print">
+<button onclick="window.print()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded transition duration-150">
+Imprimir / Guardar PDF
+</button>
+</div>
+
+
+<footer class="mt-10 pt-6 border-t text-center text-xs text-gray-500">
+<p class="font-semibold mb-2">¡Gracias por tu compra en Game Labs!</p>
+<p>Este es tu comprobante oficial. Cualquier duda, contáctanos.</p>
+</footer>
+
+</div>
+
+<script>
+// === 1. DATOS REALES: Carga el carrito desde localStorage ===
+
+let currentCart = [];
+const cartData = localStorage.getItem('checkoutCart');
+if (cartData) {
+try {
+// Parsea los datos del carrito que se guardaron en la página anterior
+currentCart = JSON.parse(cartData);
+} catch (e) {
+console.error("Error al parsear el carrito de localStorage:", e);
+}
+} else {
+console.warn("No se encontró ningún carrito guardado en localStorage.");
+}
+
+// Simulación del usuario logueado (Ajusta estos datos para leerlos de tu sesión real o API)
+const currentUser = {
+name: "Pepito Perez", 
+email: "ronnycaraballo2109@gmail.com",
+id: "69123a3cb4053c121747ed03" // ID de tu consola
+};
+
+// Datos fijos de la transacción
+const transactionDetails = {
+taxRate: 16,
+paymentMethod: "Tarjeta de Crédito",
+transactionId: 'REC-' + Date.now().toString().slice(-8),
+date: new Date().toLocaleDateString('es-VE', { 
+year: 'numeric', month: '2-digit', day: '2-digit' 
+})
+};
+
+// === 2. FUNCIÓN DE CÁLCULO ===
+function calculateTotals(items, taxRate) {
+const rate = taxRate / 100;
+let subtotal = items.reduce((sum, item) => sum + (item.price * item.cantidad), 0);
+let tax = subtotal * rate;
+let grandTotal = subtotal + tax;
+
+return {
+subtotal: subtotal,
+tax: tax,
+grandTotal: grandTotal,
+};
+}
+
+// === 3. FUNCIÓN DE RENDERIZADO ===
+function renderReceipt(user, items, details) {
+const totals = calculateTotals(items, details.taxRate);
+const receiptBody = document.getElementById('receipt-items-body');
+
+// Inyectar detalles del usuario
+document.getElementById('receipt-user-name').textContent = user.name;
+document.getElementById('receipt-user-email').textContent = user.email;
+document.getElementById('receipt-user-id').textContent = user.id;
+
+// Inyectar detalles de la transacción
+document.getElementById('receipt-transaction-id').textContent = details.transactionId;
+document.getElementById('receipt-date').textContent = details.date;
+document.getElementById('receipt-payment-method').textContent = details.paymentMethod;
+document.getElementById('receipt-tax-rate').textContent = details.taxRate;
+
+
+// Inyectar Artículos (Bucle)
+receiptBody.innerHTML = ''; 
+
+if (items.length === 0) {
+receiptBody.innerHTML = '<tr><td colspan="4" class="py-6 text-center text-gray-500">No hay artículos en este recibo.</td></tr>';
+return;
+}
+
+items.forEach(item => {
+const itemTotal = item.price * item.cantidad;
+const row = document.createElement('tr');
+row.innerHTML = `
+<td class="px-3 py-3 whitespace-nowrap font-medium text-gray-900">${item.name}</td>
+<td class="px-3 py-3 whitespace-nowrap text-right text-gray-600">${item.cantidad}</td>
+<td class="px-3 py-3 whitespace-nowrap text-right text-gray-600">$${item.price.toFixed(2)}</td>
+<td class="px-3 py-3 whitespace-nowrap text-right font-bold text-gray-900">$${itemTotal.toFixed(2)}</td>
+`;
+receiptBody.appendChild(row);
+});
+
+// Inyectar Totales
+document.getElementById('receipt-subtotal').textContent = `$${totals.subtotal.toFixed(2)}`;
+document.getElementById('receipt-tax').textContent = `$${totals.tax.toFixed(2)}`;
+document.getElementById('receipt-grand-total').textContent = `$${totals.grandTotal.toFixed(2)}`;
+
+// Opcional: Limpiar el carrito después de mostrar el recibo (simulando una compra completada)
+// localStorage.removeItem('checkoutCart');
+}
+
+// Ejecutar al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+renderReceipt(currentUser, currentCart, transactionDetails);
+});
+</script>
+</body>
+</html>
