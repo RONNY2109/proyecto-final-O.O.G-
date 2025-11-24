@@ -69,6 +69,7 @@ function analyzeCompatibility(e) {
 e.preventDefault(); // Evita que la página se recargue
 
 // Obtener valores seleccionados
+//parseInt es una funcion de javascript que convierte un string en un numero entero
 const cpuVal = cpuSelect.value;
 const gpuVal = gpuSelect.value;
 const ramVal = parseInt(ramSelect.value);

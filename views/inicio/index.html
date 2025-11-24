@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <style>
-      /* --- ESTILOS GENERALES --- */
+      /* --- ESTILOS GENERALES (Originales) --- */
       body { background-color: #e3e3e3; }
       .content-bg { background-color: #e0e2e6; }
       .nav-button-bg { background-color: #555c65; }
@@ -17,7 +17,6 @@
       .card-bg { background-color: #f3f4f6; }
       
       /* --- UTILIDADES --- */
-      .mt-44 { margin-top: 11rem; }
       .add-to-cart-button { background-color: #28a745; }
 
       /* --- CARRITO LATERAL --- */
@@ -34,31 +33,31 @@
   <body class="min-h-screen flex flex-col">
     
     <div class="fixed top-0 inset-x-0 z-40">
-      <header class="w-full content-bg rounded-b-[4rem] shadow-lg">
-        <div class="flex justify-between items-center p-6 px-12 pb-16">
+      <header class="w-full content-bg rounded-b-3xl md:rounded-b-[4rem] shadow-lg transition-all duration-300">
+        <div class="flex justify-between items-center p-4 pb-8 md:p-6 md:px-12 md:pb-16">
           
           <div class="flex items-center">
              <img 
                src="https://via.placeholder.com/200x60?text=Game+Laps+Logo" 
                alt="Logo Pagina" 
-               class="h-10 w-auto object-contain opacity-70 mix-blend-multiply"
+               class="h-8 md:h-10 w-auto object-contain opacity-70 mix-blend-multiply"
              >
           </div>
 
-          <div class="flex items-center space-x-3">
-            
+          <div class="flex items-center space-x-2 md:space-x-3">
             <a 
               href="/v_administrador/index.html" 
-              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-150 flex items-center text-sm"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 md:px-6 rounded-full shadow-md transition duration-150 flex items-center text-xs md:text-sm"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 md:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              Panel Admin
+              <span class="hidden md:inline">Panel Admin</span>
+              <span class="md:hidden">Admin</span>
             </a>
 
-            <div class="w-14 h-14 rounded-full overflow-hidden shadow-md border-2 border-white bg-gray-200">
+            <div class="w-10 h-10 md:w-14 md:h-14 rounded-full overflow-hidden shadow-md border-2 border-white bg-gray-200">
               <img 
                 src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
                 alt="Perfil" 
@@ -70,27 +69,16 @@
         </div>
       </header>
 
-      <nav class="absolute bottom-0 right-20 translate-y-1/2 z-50">
-        <div class="bg-[#555c65] p-2 rounded-full shadow-xl flex items-center px-100">
+      <nav class="absolute bottom-0 right-4 md:right-20 translate-y-1/2 z-50">
+        <div class="bg-[#555c65] p-2 rounded-full shadow-xl flex items-center px-50 md:px-50">
           <a
             id="cart-icon-link"
             href="#"
             class="p-2 text-white hover:text-gray-300 transition duration-150 relative"
             onclick="toggleSideCart()"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-8 h-8"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 md:w-8 md:h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
             </svg>
             <span
               id="cart-count"
@@ -101,15 +89,15 @@
       </nav>
     </div>
 
-    <main class="w-full content-bg flex-grow pb-32 relative z-0 mt-44">
-      <section class="grid grid-cols-4 gap-8 px-12" id="componentes-contenedor">
-        </section>
+    <main class="w-full content-bg flex-grow pb-32 relative z-0 mt-32 md:mt-44">
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-12" id="componentes-contenedor">
+      </section>
     </main>
 
-    <div id="side-cart-panel" class="side-cart-panel fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-[500] p-4 flex flex-col">
+    <div id="side-cart-panel" class="side-cart-panel fixed top-0 right-0 h-full w-full sm:w-80 bg-white shadow-2xl z-[500] p-4 flex flex-col">
       <div class="flex justify-between items-center border-b pb-3 mb-4">
         <h3 class="text-xl font-bold text-gray-800">🛒 Mi Carrito</h3>
-        <button onclick="toggleSideCart()" class="text-2xl font-bold text-gray-500 hover:text-gray-900">&times;</button>
+        <button onclick="toggleSideCart()" class="text-3xl font-bold text-gray-500 hover:text-gray-900 p-2">&times;</button>
       </div>
       <div id="cart-items-container" class="flex-grow overflow-y-auto space-y-4">
         <p id="empty-cart-message" class="text-gray-500 text-center mt-10">El carrito está vacío.</p>
@@ -123,36 +111,34 @@
       </div>
     </div>
 
-    <footer class="w-full footer-bg rounded-t-[4rem] z-30 fixed bottom-0 inset-x-0">
-      <div class="absolute -top-10 left-1/2 -translate-x-1/2">
-        <a href="/game_labs/index.html" class="w-24 h-24 game-laps-button rounded-full flex items-center justify-center text-white font-semibold shadow-xl border-4 border-gray-400 hover:bg-gray-600 transition duration-150">
-          Game laps
+    <footer class="w-full footer-bg rounded-t-[2rem] md:rounded-t-[4rem] z-30 fixed bottom-0 inset-x-0">
+      <div class="absolute -top-8 md:-top-10 left-1/2 -translate-x-1/2">
+        <a href="/game_labs/index.html" class="w-20 h-20 md:w-24 md:h-24 game-laps-button rounded-full flex items-center justify-center text-white font-semibold shadow-xl border-4 border-gray-400 hover:bg-gray-600 transition duration-150 text-center text-xs md:text-base">
+          Game<br>Labs
         </a>
       </div>
-      <div class="h-20"></div>
+      <div class="h-16 md:h-20"></div>
     </footer>
 
     <div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-70 z-[1000]"></div>
-   <div id="modal-container" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-2xl z-[1001] w-11/12 max-w-3xl">
-  <span id="modal-close" class="absolute top-3 right-5 text-3xl font-bold text-gray-500 cursor-pointer hover:text-gray-900">&times;</span>
-  
-  <div class="grid grid-cols-1 md:grid-cols-5 gap-6 pt-2">
     
-    <div class="md:col-span-2 flex flex-col items-start">
-      <img id="modal-imagen" src="" alt="Imagen" class="w-full h-auto rounded-lg border border-gray-200 mb-4" />
-      <h3 class="text-sm font-semibold text-gray-600 mb-1">Calificación del producto</h3>
-      <div id="modal-calificacion" class="text-2xl text-yellow-500 space-x-0.5"></div>
-      <button id="modal-add-to-cart-button" class="w-full mt-4 add-to-cart-button hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-150">Añadir al Carrito</button>
-    </div>
-
-    <div class="md:col-span-3">
-      <h2 id="modal-nombre" class="text-3xl font-extrabold text-gray-900 mb-4 mt-0 break-all"></h2>
+    <div id="modal-container" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl shadow-2xl z-[1001] w-11/12 max-w-3xl max-h-[90vh] overflow-y-auto">
+      <span id="modal-close" class="absolute top-3 right-5 text-3xl font-bold text-gray-500 cursor-pointer hover:text-gray-900">&times;</span>
       
-      <div id="modal-descripcion" class="text-base text-gray-700 leading-relaxed bg-gray-100 p-4 rounded-lg max-h-60 overflow-y-auto"></div>
-    </div>
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6 pt-2">
+        <div class="md:col-span-2 flex flex-col items-start">
+          <img id="modal-imagen" src="" alt="Imagen" class="w-full h-auto rounded-lg border border-gray-200 mb-4" />
+          <h3 class="text-sm font-semibold text-gray-600 mb-1">Calificación del producto</h3>
+          <div id="modal-calificacion" class="text-2xl text-yellow-500 space-x-0.5"></div>
+          <button id="modal-add-to-cart-button" class="w-full mt-4 add-to-cart-button hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-150">Añadir al Carrito</button>
+        </div>
 
-  </div>
-</div>
+        <div class="md:col-span-3">
+          <h2 id="modal-nombre" class="text-3xl font-extrabold text-gray-900 mb-4 mt-0 break-all"></h2>
+          <div id="modal-descripcion" class="text-base text-gray-700 leading-relaxed bg-gray-100 p-4 rounded-lg"></div>
+        </div>
+      </div>
+    </div>
 
     <script src="index.js"></script>
   </body>
